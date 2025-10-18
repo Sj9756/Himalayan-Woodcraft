@@ -45,25 +45,36 @@ public class UserService {
     public UserDto update(User user){
         User savedUser=findById(user.getId());
         if (savedUser!=null){
-            User updatedUser= userRepo.save(user);
+            user.setPassword(encoder.encode(user.getPassword()));
+            User updatedUser=userRepo.save(user);
             return new UserDto(updatedUser);
         }
         throw new ResourceNotFoundException("User Not exist");
     }
 
     public String  login(String email, String password) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(email, password));
+        if (userRepo.existsByEmail(email)) {
+            try {
+                Authentication authentication = authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(email, password));
 
-            if (authentication.isAuthenticated()) {
-                return new JwtUtil().generateJwtToken(email); // or generate JWT token
+                if (authentication.isAuthenticated()) {
+                    return new JwtUtil().generateJwtToken(email);
+                }
+            } catch (BadCredentialsException e) {
+                throw new ResourceNotFoundException("Invalid email or password");
+            } catch (AuthenticationException e) {
+                throw new ResourceNotFoundException("Authentication failed: " + e.getMessage());
             }
-        } catch (BadCredentialsException e) {
-            throw new ResourceNotFoundException("Invalid email or password");
-        } catch (AuthenticationException e) {
-            throw new ResourceNotFoundException("Authentication failed: " + e.getMessage());
         }
-        throw new ResourceNotFoundException("Something Went Wrong");
+        throw new ResourceNotFoundException("User Not exist");
 }
+
+    public boolean delete(int id) {
+        if (userRepo.existsById(id)) {
+            userRepo.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }

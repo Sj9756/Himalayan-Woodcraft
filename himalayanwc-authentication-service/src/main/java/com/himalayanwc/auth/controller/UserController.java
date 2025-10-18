@@ -25,10 +25,13 @@ public class UserController {
         return new ResponseEntity<>(userService.login(email,password),HttpStatus.OK);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<UserDto>updateUserDetails(@RequestBody User user){
         return new ResponseEntity<>(userService.update(user),HttpStatus.OK);
     }
 
-
-}
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Boolean>deleteUserDetails(@PathVariable int id){
+        return new ResponseEntity<>(userService.delete(id),HttpStatus.OK);
+    }
+    }
