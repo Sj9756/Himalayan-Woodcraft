@@ -25,7 +25,7 @@ public class JwtUtil {
                 .compact();
     }
     private SecretKey generateKey() {
-        String secretKey = "13df49cfa2d32a5474c54d9a5819e3a2cd6b363b5456e2849d189d142084553d";
+        String secretKey = "lA8XU4sE/tO+Q4wG1kYJb+K5fR/sT+ZlA6cT8gV/wM+I=";
         byte[] decode = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(decode);
     }

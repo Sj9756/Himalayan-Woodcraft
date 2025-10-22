@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/himalayanwc-authentication-service/himalayanwc-authentication-service.iml" filepath="$PROJECT_DIR$/himalayanwc-authentication-service/himalayanwc-authentication-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/himalayanwc-product-service/himalayanwc-product-service.iml" filepath="$PROJECT_DIR$/himalayanwc-product-service/himalayanwc-product-service.iml" />
     </modules>
   </component>
 </project>
